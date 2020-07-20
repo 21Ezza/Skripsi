@@ -15,12 +15,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from app.Controller.ratings import Ratings
 
 
-ratings = Ratings
-ratings = ratings[:1000]
-ratings.shape
+class Training:
+    def __init__(self): 
+        pass
 
-
-class training:
     def create_interaction_matrix(self, df, user_col, item_col, rating_col, norm= False, threshold = None):
         '''
         Function to create an interaction matrix dataframe from transactional type interactions
@@ -137,39 +135,47 @@ class training:
         return return_score_list
     
     def run(self, path):
-        # Creating interaction matrix using rating data
-        interactions = self.create_interaction_matrix(df = ratings,
-                                                user_col = 'userId',
-                                                item_col = 'movieId',
-                                                rating_col = 'rating')
-        interactions.head(10)
+        ratings = Ratings
+        ratings = ratings.rating[:1000]
+        ratings.shape
+
+        return "mulai"
+
+
+
+        # # Creating interaction matrix using rating data
+        # interactions = self.create_interaction_matrix(df = ratings,
+        #                                         user_col = 'userId',
+        #                                         item_col = 'movieId',
+        #                                         rating_col = 'rating')
+        # interactions.head(10)
         
-        movies = Movie
+        # movies = Movie
         
 
-        # Create User Dict
-        user_dict = self.create_user_dict(interactions=interactions)
-        # Create Item dict
-        movies_dict = self.create_item_dict(df = movies,
-                                    id_col = 'movieId',
-                                    name_col = 'title')
+        # # Create User Dict
+        # user_dict = self.create_user_dict(interactions=interactions)
+        # # Create Item dict
+        # movies_dict = self.create_item_dict(df = movies,
+        #                             id_col = 'movieId',
+        #                             name_col = 'title')
         
-        mf_model = self.runMF(interactions = interactions,
-                        n_components = 30,
-                        loss = 'warp',
-                        epoch = 30,
-                        n_jobs = 4)
+        # mf_model = self.runMF(interactions = interactions,
+        #                 n_components = 30,
+        #                 loss = 'warp',
+        #                 epoch = 30,
+        #                 n_jobs = 4)
         
-        ## Calling 10 movie recommendation for user id 7
-        rec_list = self.sample_recommendation_user(model = mf_model, 
-                                            interactions = interactions, 
-                                            user_id = 7, 
-                                            user_dict = user_dict,
-                                            item_dict = movies_dict, 
-                                            threshold = 4,
-                                            nrec_items = 10,
-                                            show = True)
+        # ## Calling 10 movie recommendation for user id 7
+        # rec_list = self.sample_recommendation_user(model = mf_model, 
+        #                                     interactions = interactions, 
+        #                                     user_id = 7, 
+        #                                     user_dict = user_dict,
+        #                                     item_dict = movies_dict, 
+        #                                     threshold = 4,
+        #                                     nrec_items = 10,
+        #                                     show = True)
         
      
-train = training()
-train.run(os.path.join(os.path.dirname(os.path.dirname(__file__)),'input/movies.csv'));
+# train = training()
+# train.run(os.path.join(os.path.dirname(os.path.dirname(__file__)),'input/movies.csv'));
